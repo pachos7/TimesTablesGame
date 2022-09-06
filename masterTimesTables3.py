@@ -31,6 +31,29 @@ maxPointsFile.close()
 
 pygame.init()
 
+class CenteredText(pygame.sprite.Sprite):
+    def __init__(self, text, size, color, width, height):
+        # Call the parent class (Sprite) constructor  
+        pygame.sprite.Sprite.__init__(self)
+    
+        self.font = pygame.font.SysFont("Arial", size)
+        self.textSurf = self.font.render(text, 1, color)
+        self.image = pygame.Surface((width, height))
+        self.color = color
+        self.width = self.textSurf.get_width()
+        self.height = self.textSurf.get_height()
+        self.centered = centered
+        #self.image.blit(self.textSurf, [width/2 - self.width/2, height/2 - self.height/2])
+        #self.image.blit(self.textSurf, [0, 0])
+    
+    def setText(self, text):
+        self.textSurf = self.font.render(text, 1, self.color)
+        textLen = len(text)
+        print('textLen:' + str(textLen) + '<' + text + '>' + str(self.centered))
+        #self.image.blit(self.textSurf, [10, 10])
+        #screen.blit(mainText.textSurf, (0, 0))
+        screen.blit(self.textSurf, (30, 10))
+
 class Text(pygame.sprite.Sprite):
     def __init__(self, text, size, color, width, height, centered=False):
         # Call the parent class (Sprite) constructor  
@@ -57,6 +80,7 @@ class Text(pygame.sprite.Sprite):
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 
+'''
 textPos = 50
 
 livesText  = Text('Lives :' + str(lives), 48, (20, 70, 120), 100, 100)
@@ -80,7 +104,11 @@ def resetQuestion():
     return str(a) + ' x ' + str(b)
 
 running = True
+'''
 intro = True
+
+xfont = pygame.font.SysFont("Arial", 10)
+xtextSurf = xfont.render('abc', 1, (20, 70, 120))
 
 while intro:
 
@@ -97,13 +125,14 @@ while intro:
     # outside of user's text input
     # answerInputRect.w = max(100, text_surface.get_width()+10)
           
-    screen.blit(livesText.textSurf, (20, 20))
+    screen.blit(xtextSurf, (20, 20))
+    #screen.blit(livesText.textSurf, (20, 20))
     #screen.blit(mainText.textSurf, (SCREEN_WIDTH/2, textPos))
-    screen.blit(mainText.textSurf, (0, 0))
-    screen.blit(pointsText.textSurf, (SCREEN_WIDTH - 150, 20))
+    #screen.blit(mainText.textSurf, (0, 0))
+    #screen.blit(pointsText.textSurf, (SCREEN_WIDTH - 150, 20))
     pygame.display.flip()
 
-
+'''
 while running:
 
     if lives == 0:
@@ -177,5 +206,6 @@ while running:
     #screen.blit(mainText.textSurf, (SCREEN_WIDTH/2 - mainTextSize, textPos))
     screen.blit(pointsText.textSurf, (SCREEN_WIDTH - 150, 20))
     pygame.display.flip()
+'''
 
 pygame.quit()
